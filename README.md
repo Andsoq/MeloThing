@@ -4,9 +4,7 @@ Landing page e protótipo interativo da assistente de aprendizagem musical do Me
 
 ## Abrir
 
-Abra `index.html` no navegador. Os arquivos são locais, sem instalação de pacotes ou acesso obrigatório à internet. Mantenha as pastas `assets` e `docs` junto dos arquivos HTML, CSS e JavaScript.
-
-Se preferir, sirva a pasta em um servidor HTTP estático. Durante o desenvolvimento, a visualização local usa a porta 4173.
+Veja por aqui: https://andsoq.github.io/MeloThing/
 
 ## Conteúdo
 
