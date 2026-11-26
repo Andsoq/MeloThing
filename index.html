@@ -1,86 +1,832 @@
-<!doctype html>
-<html lang="pt-BR">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f8f5ef">
-  <meta name="description" content="Conheça a Melodia, a assistente do MeloThing que acompanha sua jornada de aprendizagem musical. Explore a personagem e experimente cinco fluxos de conversa.">
-  <title>Melodia · Sua companhia na jornada musical</title>
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-  <link rel="stylesheet" href="styles.css">
-  <script src="app.js" defer></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
 </head>
 <body>
-  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
-  <header class="site-header">
-    <a class="brand" href="#inicio" aria-label="MeloThing início"><span class="brand-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Melo<span>Thing</span><span class="brand-divider"></span><span class="brand-product">Melodia</span></a>
-    <button class="menu-toggle icon-button" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-nav"><span></span><span></span></button>
-    <nav id="main-nav" aria-label="Navegação principal">
-      <a href="#personagem">A Melodia</a><a href="#possibilidades">O que ela faz</a><a href="#experimente">Experimente</a><a href="#projeto">O projeto</a>
+<x-dc>
+<helmet>
+<title>MeloThing · Cursos de música com a MelodI.A</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#110a0b;color:#f6ebe4;font-family:Figtree,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#f0b7ad;text-decoration:none}
+a:hover{color:#ffffff}
+::selection{background:#e0333f;color:#fff}
+button{font-family:inherit}
+@keyframes mdTyping{0%,80%,100%{opacity:.25;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}
+</style>
+</helmet>
+
+<div style="position:relative;overflow-x:hidden">
+
+<header style="position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:center;padding:14px 20px;pointer-events:none">
+  <div style="pointer-events:auto;width:100%;max-width:1280px;display:flex;align-items:center;gap:20px;padding:10px 12px 10px 20px;background:rgba(17,10,11,0.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(246,235,228,0.10);border-radius:999px;box-sizing:border-box">
+    <a href="#inicio" style="flex-shrink:0;display:flex;align-items:center;gap:10px;color:#f6ebe4;font-weight:700;font-size:18px;letter-spacing:-0.01em">
+      <span style="display:flex;align-items:center;gap:3px;height:22px">
+        <i data-eq="" style="display:block;width:3px;height:8px;background:#e0333f;border-radius:2px"></i>
+        <i data-eq="" style="display:block;width:3px;height:16px;background:#e0333f;border-radius:2px"></i>
+        <i data-eq="" style="display:block;width:3px;height:22px;background:#e0333f;border-radius:2px"></i>
+        <i data-eq="" style="display:block;width:3px;height:14px;background:#e0333f;border-radius:2px"></i>
+        <i data-eq="" style="display:block;width:3px;height:9px;background:#e0333f;border-radius:2px"></i>
+      </span>
+      <span>Melo<span style="color:#e0333f">Thing</span></span>
+    </a>
+    <nav style="display:flex;gap:2px;flex:1;min-width:0;justify-content:safe center;flex-wrap:nowrap;white-space:nowrap;overflow-x:auto;scrollbar-width:none">
+      <a href="#melodia" style="padding:8px 10px;border-radius:999px;color:#d9c6bf;font-size:14px;font-weight:500;flex-shrink:0" style-hover="color:#fff;background:rgba(246,235,228,0.07)">MelodI.A</a>
+      <a href="#cursos" style="padding:8px 10px;border-radius:999px;color:#d9c6bf;font-size:14px;font-weight:500;flex-shrink:0" style-hover="color:#fff;background:rgba(246,235,228,0.07)">Cursos</a>
+      <a href="#pratica" style="padding:8px 10px;border-radius:999px;color:#d9c6bf;font-size:14px;font-weight:500;flex-shrink:0" style-hover="color:#fff;background:rgba(246,235,228,0.07)">Prática</a>
+      <a href="#planos" style="padding:8px 10px;border-radius:999px;color:#d9c6bf;font-size:14px;font-weight:500;flex-shrink:0" style-hover="color:#fff;background:rgba(246,235,228,0.07)">Planos</a>
+      <a href="#projeto" style="padding:8px 10px;border-radius:999px;color:#d9c6bf;font-size:14px;font-weight:500;flex-shrink:0" style-hover="color:#fff;background:rgba(246,235,228,0.07)">Projeto</a>
     </nav>
-    <a class="button button-small button-dark header-cta" href="#experimente">Vamos conversar <span aria-hidden="true">↗</span></a>
-  </header>
+    <button onClick="{{ toggleSound }}" title="Ligar ou desligar sons" style="flex-shrink:0;display:flex;align-items:center;gap:8px;height:38px;padding:0 14px;border-radius:999px;border:1px solid rgba(246,235,228,0.16);background:transparent;color:#d9c6bf;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer" style-hover="border-color:#e0333f;color:#fff">
+      <span style="width:7px;height:7px;border-radius:50%;background:{{ soundDot }}"></span>Som
+    </button>
+    <a href="#cursos" style="flex-shrink:0;white-space:nowrap;display:flex;align-items:center;height:38px;padding:0 18px;border-radius:999px;background:#e0333f;color:#fff;font-weight:600;font-size:14px" style-hover="background:#f04450;color:#fff">Começar grátis</a>
+  </div>
+</header>
 
-  <main id="conteudo">
-    <section class="hero section-shell" id="inicio" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <p class="eyebrow"><span class="tiny-wave" aria-hidden="true">♪</span> MELOTHING APRESENTA</p>
-        <h1 id="hero-title">Aprender música.<br>Encontrar seu ritmo.<br><em>Com a Melodia.</em></h1>
-        <p class="hero-description">Uma presença feita de som para acompanhar suas descobertas. Conheça a assistente que transforma dúvidas em novos passos na sua jornada musical.</p>
-        <div class="hero-actions"><a class="button button-red" href="#experimente">Conheça na prática <span aria-hidden="true">↗</span></a><a class="text-link" href="#personagem">Quem é a Melodia? <span aria-hidden="true">↓</span></a></div>
-        <div class="hero-footnote"><span class="status-dot"></span> Protótipo interativo <span class="footnote-divider">/</span> Feito para explorar no seu ritmo</div>
+<section id="inicio" data-screen-label="Início" style="position:relative;min-height:100vh;padding:120px 24px 0;box-sizing:border-box;display:flex;flex-direction:column;background:#110a0b;overflow:hidden">
+  <div ref="{{ staffRef }}" style="position:absolute;left:0;right:0;top:34%;height:150px;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none">
+    <div style="height:1px;background:rgba(246,235,228,0.09)"></div>
+    <div style="height:1px;background:rgba(246,235,228,0.09)"></div>
+    <div style="height:1px;background:rgba(246,235,228,0.09)"></div>
+    <div style="height:1px;background:rgba(246,235,228,0.09)"></div>
+    <div style="height:1px;background:rgba(246,235,228,0.09)"></div>
+    <div ref="{{ playheadRef }}" style="position:absolute;top:-30px;bottom:-30px;left:0;width:1px;background:#e0333f;box-shadow:0 0 18px 2px rgba(224,51,63,0.55);opacity:0.7"></div>
+  </div>
+
+  <div style="position:relative;flex:1;width:100%;max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:24px;align-items:center">
+    <div style="position:relative;z-index:2;padding:24px 0 40px">
+      <div style="display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#f0b7ad">
+        <span style="width:28px;height:1px;background:#e0333f"></span>Plataforma de cursos de música
       </div>
-      <div class="hero-visual" aria-label="Melodia, personagem formada por ondas sonoras vermelhas">
-        <div class="hero-orbit orbit-one"></div><div class="hero-orbit orbit-two"></div>
-        <span class="floating-note note-one" aria-hidden="true">♫</span><span class="floating-note note-two" aria-hidden="true">♪</span><span class="floating-star" aria-hidden="true">✦</span>
-        <span class="hero-handwriting">Seu próximo som<br>começa com uma conversa.</span>
-        <img class="hero-character" src="assets/melodia.png" alt="Melodia com cabelos de partituras, corpo de ondas sonoras e vestido inspirado em teclas de piano" fetchpriority="high" width="1024" height="1365">
-        <div class="character-caption"><span aria-hidden="true">✦</span><div><strong>Melodia</strong><span>Guia. Companhia. Orientação.</span></div><span class="caption-wave" aria-hidden="true">▂ ▅ █ ▃ ▆</span></div>
+      <sc-if value="{{ hNota }}" hint-placeholder-val="{{ true }}">
+        <h1 style="margin:22px 0 0;font-family:'Bodoni Moda',serif;font-weight:500;font-size:clamp(48px,7.2vw,104px);line-height:0.96;letter-spacing:-0.025em;text-wrap:balance">Toda grande música começa com <em style="color:#e0333f;font-weight:500">uma nota.</em></h1>
+      </sc-if>
+      <sc-if value="{{ hDentro }}" hint-placeholder-val="{{ false }}">
+        <h1 style="margin:22px 0 0;font-family:'Bodoni Moda',serif;font-weight:500;font-size:clamp(48px,7.2vw,104px);line-height:0.96;letter-spacing:-0.025em;text-wrap:balance">Aprenda música com quem <em style="color:#e0333f;font-weight:500">vive dentro dela.</em></h1>
+      </sc-if>
+      <sc-if value="{{ hPalco }}" hint-placeholder-val="{{ false }}">
+        <h1 style="margin:22px 0 0;font-family:'Bodoni Moda',serif;font-weight:500;font-size:clamp(48px,7.2vw,104px);line-height:0.96;letter-spacing:-0.025em;text-wrap:balance">Do primeiro acorde <em style="color:#e0333f;font-weight:500">ao seu palco.</em></h1>
+      </sc-if>
+      <p style="margin:28px 0 0;max-width:500px;font-size:19px;line-height:1.55;color:#cdb9b2;text-wrap:pretty">Cursos gratuitos e pagos de piano, violão, teoria e produção musical. A <strong style="color:#f6ebe4;font-weight:600">MelodI.A</strong> encontra o caminho certo e explica cada passo — quem toca é você.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:36px">
+        <a href="#chat" style="display:flex;align-items:center;gap:10px;height:56px;padding:0 28px;border-radius:999px;background:#e0333f;color:#fff;font-weight:600;font-size:16px;box-shadow:0 10px 40px -10px rgba(224,51,63,0.7)" style-hover="background:#f04450;color:#fff">Conversar com a MelodI.A <span>→</span></a>
+        <a href="#cursos" style="display:flex;align-items:center;height:56px;padding:0 26px;border-radius:999px;border:1px solid rgba(246,235,228,0.22);color:#f6ebe4;font-weight:500;font-size:16px" style-hover="border-color:#f6ebe4;color:#fff">Ver cursos</a>
       </div>
-      <a class="scroll-hint" href="#personagem"><span aria-hidden="true">↓</span> Vem conhecer</a>
-    </section>
+      <div style="display:flex;flex-wrap:wrap;gap:28px;margin-top:48px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.06em;color:#a8918a;text-transform:uppercase">
+        <span>Piano</span><span>Violão</span><span>Teoria</span><span>Percepção</span><span>Produção</span>
+      </div>
+    </div>
 
-    <div class="music-ribbon" aria-hidden="true"><span>UM PASSO DE CADA VEZ</span><b>✦</b><span>CADA DESCOBERTA, UM NOVO SOM</span><b>✦</b><span>APRENDA NO SEU RITMO</span><b>✦</b><span>COM A MELODIA</span></div>
+    <div style="position:relative;display:flex;justify-content:center;align-items:flex-end;min-height:560px;height:100%">
+      <div style="position:absolute;left:50%;top:48%;width:min(620px,110%);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(224,51,63,0.30) 0%,rgba(224,51,63,0.08) 45%,rgba(17,10,11,0) 70%)"></div>
+      <div style="position:absolute;left:50%;top:48%;width:min(460px,86%);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(240,183,173,0.16)"></div>
+      <button onClick="{{ singMotif }}" title="Clique para ouvir a MelodI.A" style="position:relative;z-index:2;border:0;background:transparent;padding:0;cursor:pointer;display:block">
+        <img ref="{{ mascotRef }}" src="assets/melodia.webp" alt="MelodI.A, mascote do MeloThing: cabelos de partitura e saia de teclas de piano" style="display:block;height:min(74vh,680px);max-width:100%;object-fit:contain;filter:drop-shadow(0 30px 60px rgba(0,0,0,0.6))">
+      </button>
+      <div style="position:absolute;right:0;bottom:120px;z-index:3;max-width:220px;padding:14px 16px;background:#f6ebe4;color:#1c1113;border-radius:18px 18px 18px 4px;font-size:14px;line-height:1.45;box-shadow:0 20px 50px -20px rgba(0,0,0,0.6)">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#b8232e;margin-bottom:4px">MelodI.A</div>
+        Toque no piano aqui embaixo. Eu escuto com você.
+      </div>
+    </div>
+  </div>
 
-    <section class="persona-section section-shell section-space" id="personagem" aria-labelledby="persona-title">
-      <div class="persona-art"><div class="persona-art-top"><span>ESTUDO DE PERSONAGEM</span><span>01 — MELODIA</span></div><img src="assets/personagem-original.png" alt="Ficha original da Melodia: vistas de frente, lado e costas, detalhes de partituras, piano e expressões" loading="lazy" width="1536" height="1024"><button class="image-expand" data-image="assets/personagem-original.png" data-caption="Ficha original da Melodia" aria-label="Ampliar ficha da personagem">Ampliar imagem <span aria-hidden="true">↗</span></button><p>A identidade visual que dá forma à nossa assistente.</p></div>
-      <div class="persona-copy"><p class="eyebrow">01 / A PERSONAGEM</p><h2 id="persona-title">Ela não entende música.<br>Ela é <em>música.</em></h2><p>A Melodia personifica o que conecta todo o MeloThing: a música. Seu corpo e suas expressões surgem de ondas sonoras vermelhas. Os cabelos são partituras em movimento; o vestido carrega a delicadeza da moda clássica e as teclas de um piano.</p><p>Na conversa, ela é amigável, curiosa e acolhedora. Explica com palavras simples, propõe um próximo passo e respeita o tempo de quem está aprendendo.</p><dl class="persona-facts"><div><dt>ESSÊNCIA</dt><dd>Uma presença feita de som</dd></div><div><dt>TOM DE VOZ</dt><dd>Amigável e encorajador</dd></div><div><dt>SEU PAPEL</dt><dd>Orientar suas descobertas</dd></div><div><dt>JEITO DE ENSINAR</dt><dd>Uma dica, depois uma tentativa</dd></div></dl></div>
-    </section>
+  <div style="position:relative;z-index:4;width:100%;max-width:1280px;margin:0 auto;padding-bottom:28px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:12px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#a8918a">
+      <span>Toque com o mouse ou use as teclas A — L · W — P</span>
+      <span>Última nota · <b style="color:#f6ebe4;font-weight:500">{{ lastNote }}</b></span>
+    </div>
+    <div style="position:relative;display:flex;height:130px;border-radius:14px;overflow:hidden;background:#000;padding:0 0 0 0;box-shadow:0 -1px 0 rgba(246,235,228,0.1),0 30px 60px -30px rgba(224,51,63,0.5)">
+      <sc-for list="{{ whiteKeys }}" as="k" hint-placeholder-count="15">
+        <div onMouseDown="{{ k.down }}" style="position:relative;flex:1;margin-right:2px;background:{{ k.bg }};border-radius:0 0 8px 8px;cursor:pointer;display:flex;align-items:flex-end;justify-content:center;padding-bottom:10px;box-sizing:border-box;user-select:none;transition:background 120ms">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8a716b;text-transform:uppercase">{{ k.label }}</span>
+          <sc-if value="{{ k.hasBlack }}" hint-placeholder-val="{{ false }}">
+            <div onMouseDown="{{ k.bdown }}" style="position:absolute;top:0;right:-32%;width:60%;height:62%;z-index:3;background:{{ k.bbg }};border-radius:0 0 6px 6px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;box-sizing:border-box;transition:background 120ms">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#8a716b;text-transform:uppercase">{{ k.blabel }}</span>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
 
-    <section class="functions-section section-space" id="possibilidades" aria-labelledby="functions-title">
-      <div class="section-shell"><div class="section-heading"><div><p class="eyebrow">02 / CINCO FORMAS DE AJUDAR</p><h2 id="functions-title">Uma boa companhia.<br><em>Muitas descobertas.</em></h2></div><p>Do primeiro “por onde começo?” à próxima etapa da trilha, a Melodia ajuda você a construir o próprio conhecimento.</p></div>
-        <div class="function-list">
-          <button class="function-row" data-scenario="trilha"><span class="function-number">01</span><span class="function-symbol" aria-hidden="true">↗</span><span class="function-content"><strong>Encontrar seu caminho</strong><span>Entender seu objetivo, instrumento e nível para orientar a escolha de uma trilha.</span></span><span class="function-action">Experimentar <span aria-hidden="true">↗</span></span></button>
-          <button class="function-row" data-scenario="conceito"><span class="function-number">02</span><span class="function-symbol" aria-hidden="true">♮</span><span class="function-content"><strong>Descomplicar a teoria</strong><span>Explicar conceitos musicais com exemplos próximos de quem está aprendendo.</span></span><span class="function-action">Experimentar <span aria-hidden="true">↗</span></span></button>
-          <button class="function-row" data-scenario="pratica"><span class="function-number">03</span><span class="function-symbol" aria-hidden="true">♫</span><span class="function-content"><strong>Guiar a prática</strong><span>Oferecer dicas e propor uma tentativa, mantendo você no centro da atividade.</span></span><span class="function-action">Experimentar <span aria-hidden="true">↗</span></span></button>
-          <button class="function-row" data-scenario="progresso"><span class="function-number">04</span><span class="function-symbol" aria-hidden="true">◷</span><span class="function-content"><strong>Retomar sua jornada</strong><span>Ajudar a entender o progresso e identificar a próxima etapa de estudo.</span></span><span class="function-action">Experimentar <span aria-hidden="true">↗</span></span></button>
-          <button class="function-row" data-scenario="criador"><span class="function-number">05</span><span class="function-symbol" aria-hidden="true">✎</span><span class="function-content"><strong>Apoiar quem ensina</strong><span>Orientar criadores sobre organização de trilhas e regras de publicação.</span></span><span class="function-action">Experimentar <span aria-hidden="true">↗</span></span></button>
+<section id="melodia" data-screen-label="MelodI.A" style="background:#170d0f;padding:140px 24px;border-top:1px solid rgba(246,235,228,0.07)">
+  <div style="max-width:1280px;margin:0 auto">
+    <div data-reveal="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:64px;align-items:start">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#f0b7ad">01 — A assistente</div>
+        <h2 style="margin:20px 0 0;font-family:'Bodoni Moda',serif;font-weight:500;font-size:clamp(44px,5.6vw,80px);line-height:0.98;letter-spacing:-0.02em">Conheça a Melod<em style="color:#e0333f">I.A</em></h2>
+        <p style="margin:28px 0 0;font-size:18px;line-height:1.6;color:#cdb9b2;max-width:520px;text-wrap:pretty">Uma presença feita de música. O rosto é desenhado por ondas sonoras, os cabelos são fitas de partitura e a saia lembra as teclas de um piano. Curiosa e acolhedora, ela fala pouco e pergunta muito — para que você descubra o caminho por conta própria.</p>
+        <button onClick="{{ openFicha }}" style="margin-top:36px;display:block;width:100%;padding:0;border:1px solid rgba(246,235,228,0.12);border-radius:20px;overflow:hidden;background:#000;cursor:zoom-in;text-align:left" style-hover="border-color:#e0333f">
+          <img src="assets/ficha.png" alt="Ficha visual da MelodI.A gerada por IA" style="display:block;width:100%;height:auto">
+          <div style="display:flex;justify-content:space-between;padding:14px 18px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#a8918a;background:#110a0b">
+            <span>Ficha visual · gerada por IA</span><span style="color:#f0b7ad">Ampliar ↗</span>
+          </div>
+        </button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:2px;padding-top:8px">
+        <sc-for list="{{ persona }}" as="p" hint-placeholder-count="10">
+          <div style="display:grid;grid-template-columns:minmax(120px,170px) minmax(0,1fr);gap:20px;padding:18px 0;border-bottom:1px solid rgba(246,235,228,0.09)">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#a8918a;padding-top:4px">{{ p.k }}</span>
+            <span style="font-size:17px;line-height:1.5;color:#f6ebe4;text-wrap:pretty">{{ p.v }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div data-reveal="" style="margin-top:120px">
+      <h3 style="margin:0;font-family:'Bodoni Moda',serif;font-weight:500;font-size:clamp(34px,4vw,56px);line-height:1.05;letter-spacing:-0.015em;max-width:800px;text-wrap:balance">Ela guia. <em style="color:#e0333f">Você cria.</em></h3>
+      <p style="margin:18px 0 0;font-size:18px;line-height:1.6;color:#cdb9b2;max-width:620px">A MelodI.A não compõe, não toca e não faz o exercício por você. Ela ajuda a buscar, entender e praticar.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px;margin-top:44px">
+        <div style="padding:32px;border-radius:22px;background:#1f1214;border:1px solid rgba(246,235,228,0.08)">
+          <div style="font-family:'Bodoni Moda',serif;font-style:italic;font-size:44px;color:#e0333f;line-height:1">i.</div>
+          <div style="margin-top:28px;font-size:21px;font-weight:600">Busca</div>
+          <p style="margin:10px 0 0;font-size:16px;line-height:1.55;color:#cdb9b2">Encontra cursos e trilhas a partir do seu interesse e do seu nível.</p>
+        </div>
+        <div style="padding:32px;border-radius:22px;background:#1f1214;border:1px solid rgba(246,235,228,0.08)">
+          <div style="font-family:'Bodoni Moda',serif;font-style:italic;font-size:44px;color:#e0333f;line-height:1">ii.</div>
+          <div style="margin-top:28px;font-size:21px;font-weight:600">Explica</div>
+          <p style="margin:10px 0 0;font-size:16px;line-height:1.55;color:#cdb9b2">Descomplica conceitos como ritmo e pulsação com exemplos curtos.</p>
+        </div>
+        <div style="padding:32px;border-radius:22px;background:#1f1214;border:1px solid rgba(246,235,228,0.08)">
+          <div style="font-family:'Bodoni Moda',serif;font-style:italic;font-size:44px;color:#e0333f;line-height:1">iii.</div>
+          <div style="margin-top:28px;font-size:21px;font-weight:600">Orienta</div>
+          <p style="margin:10px 0 0;font-size:16px;line-height:1.55;color:#cdb9b2">Dá pistas durante a prática, sem entregar a resposta pronta.</p>
+        </div>
+        <div style="padding:32px;border-radius:22px;background:transparent;border:1px dashed rgba(240,183,173,0.3)">
+          <div style="font-family:'Bodoni Moda',serif;font-style:italic;font-size:44px;color:#8a716b;line-height:1">—</div>
+          <div style="margin-top:28px;font-size:21px;font-weight:600;color:#f0b7ad">Não gera</div>
+          <p style="margin:10px 0 0;font-size:16px;line-height:1.55;color:#cdb9b2">Músicas, letras ou respostas de atividades continuam sendo autoria sua.</p>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
-    <section class="demo-section section-shell section-space" id="experimente" aria-labelledby="demo-title">
-      <div class="section-heading"><div><p class="eyebrow">03 / UMA CONVERSA MUDA O COMPASSO</p><h2 id="demo-title">Pode perguntar.<br><em>Ela acompanha.</em></h2></div><div class="demo-intro"><p>Escolha uma situação e percorra a conversa. Você pode usar as sugestões ou escrever sua resposta.</p><span class="demo-disclosure"><span class="status-dot"></span> Demonstração com respostas preparadas</span></div></div>
-      <div class="chat-workspace">
-        <aside class="scenario-panel"><span class="panel-eyebrow">COMECE POR AQUI</span><div class="scenario-buttons" role="group" aria-label="Escolher fluxo de conversa"><button data-select-scenario="trilha" class="scenario-button active" aria-pressed="true"><span>01</span><div>Escolher uma trilha<small>Seu primeiro passo</small></div><b aria-hidden="true">↗</b></button><button data-select-scenario="conceito" class="scenario-button" aria-pressed="false"><span>02</span><div>Tirar uma dúvida<small>Ritmo e pulsação</small></div><b aria-hidden="true">↗</b></button><button data-select-scenario="pratica" class="scenario-button" aria-pressed="false"><span>03</span><div>Praticar com ajuda<small>Escutar e experimentar</small></div><b aria-hidden="true">↗</b></button><button data-select-scenario="progresso" class="scenario-button" aria-pressed="false"><span>04</span><div>Continuar estudando<small>Progresso e próxima etapa</small></div><b aria-hidden="true">↗</b></button><button data-select-scenario="criador" class="scenario-button" aria-pressed="false"><span>05</span><div>Criar uma trilha<small>Compartilhar conhecimento</small></div><b aria-hidden="true">↗</b></button></div><div class="scenario-note"><span aria-hidden="true">✦</span><p>Uma dica de cada vez.<br>A descoberta continua sendo sua.</p></div></aside>
-        <div class="chat-main"><header class="chat-header"><div class="chat-avatar"><img src="assets/melodia.png" alt="" width="40" height="40"></div><div><strong>Melodia</strong><span id="chat-context">Vamos encontrar sua trilha</span></div><button class="icon-button reset-chat" title="Recomeçar conversa" aria-label="Recomeçar conversa">↺</button></header><div id="chat-messages" class="chat-messages" role="log" aria-live="polite" aria-relevant="additions" aria-label="Conversa com a Melodia"></div><div class="chat-bottom"><div id="chat-choices" class="chat-choices" role="group" aria-label="Sugestões de resposta"></div><form id="chat-form" class="chat-input"><label class="sr-only" for="chat-text">Sua mensagem</label><input id="chat-text" name="message" type="text" placeholder="Escreva sua resposta..." autocomplete="off" maxlength="500" required><button type="submit" aria-label="Enviar mensagem"><span aria-hidden="true">↑</span></button></form><p class="chat-hint">Conversa simulada · Sem envio ou armazenamento de dados</p></div></div>
-        <aside class="chat-companion"><span class="panel-eyebrow">SUA COMPANHIA MUSICAL</span><img src="assets/melodia.png" alt="Melodia acompanha a conversa" loading="lazy" width="1024" height="1365"><div><span class="companion-star" aria-hidden="true">✦</span><p>“Vamos descobrir<br>isso <em>juntos?</em>”</p></div><span class="companion-caption">Aprender também é poder perguntar.</span></aside>
+<section id="chat" data-screen-label="Chat" style="background:#f4ebe3;color:#1c1113;padding:140px 24px">
+  <div style="max-width:1280px;margin:0 auto">
+    <div data-reveal="" style="display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#b8232e">02 — Interface conversacional</div>
+        <h2 style="margin:20px 0 0;font-family:'Bodoni Moda',serif;font-weight:500;font-size:clamp(44px,5.6vw,80px);line-height:0.98;letter-spacing:-0.02em">Converse com <em style="color:#b8232e">ela.</em></h2>
       </div>
-      <div class="flow-inspector"><button id="flow-toggle" class="flow-toggle" aria-expanded="false" aria-controls="flow-detail"><span><span aria-hidden="true">⌘</span> Por dentro da conversa</span><span>Ver fluxo documentado <b aria-hidden="true">+</b></span></button><div id="flow-detail" class="flow-detail" hidden><div class="flow-detail-intro"><p class="eyebrow" id="flow-id">FLUXO 01</p><h3 id="flow-title">Escolha de trilha</h3><p id="flow-objective"></p></div><ol id="flow-steps" class="flow-steps"></ol><p class="flow-rule" id="flow-rule"></p><a class="text-link" href="docs/fluxos-conversacionais.md" download>Baixar os cinco fluxos completos <span aria-hidden="true">↓</span></a></div></div>
-    </section>
+      <p style="margin:0;max-width:380px;font-size:17px;line-height:1.6;color:#6b5853">Escolha um dos cinco fluxos. Responda pelas sugestões ou escreva com suas palavras.</p>
+    </div>
 
-    <section class="journey-section section-space" aria-labelledby="journey-title"><div class="section-shell journey-grid"><div><p class="eyebrow">04 / DENTRO DO MELOTHING</p><h2 id="journey-title">Cada etapa,<br><em>um novo som.</em></h2><p>O MeloThing organiza o aprendizado de instrumentos e produção musical em trilhas progressivas. A Melodia acompanha essa experiência com explicações e orientação.</p><p>Conteúdos oficiais e trilhas da comunidade abrem espaço para aprender, ensinar e compartilhar conhecimento.</p><button class="text-link" id="open-journey">Explorar uma trilha demonstrativa <span aria-hidden="true">↗</span></button><p class="micro-copy">Exemplo ilustrativo de progresso. Nenhuma conta é necessária.</p></div><div class="journey-map" aria-label="Exemplo de trilha Piano do zero"><div class="journey-map-heading"><span>PIANO DO ZERO</span><span>UNIDADE 01</span></div><div class="path-line"></div><div class="journey-node node-done"><span>✓</span><div><small>ETAPA CONCLUÍDA</small><strong>Conhecendo o piano</strong></div></div><div class="journey-node node-done node-offset"><span>✓</span><div><small>ETAPA CONCLUÍDA</small><strong>Notas musicais</strong></div></div><button class="journey-node node-current" id="open-practice"><span>▶</span><div><small>SEU PRÓXIMO PASSO</small><strong>Ritmo e pulsação</strong><b>Experimentar atividade ↗</b></div></button><div class="journey-node node-locked node-offset"><span aria-hidden="true">♩</span><div><small>PRÓXIMA DESCOBERTA</small><strong>Sua primeira melodia</strong></div></div><div class="journey-node node-locked"><span aria-hidden="true">✦</span><div><small>DESAFIO DA UNIDADE</small><strong>Colocando em prática</strong></div></div></div></div></section>
+    <div data-reveal="" style="margin-top:56px;display:flex;flex-wrap:wrap;gap:20px;align-items:stretch">
+      <div style="flex:1 1 280px;display:flex;flex-direction:column;gap:8px">
+        <sc-for list="{{ scenarios }}" as="s" hint-placeholder-count="5">
+          <button onClick="{{ s.go }}" style="display:grid;grid-template-columns:40px minmax(0,1fr) auto;align-items:center;gap:14px;padding:18px 20px;border-radius:18px;border:1px solid {{ s.border }};background:{{ s.bg }};color:{{ s.fg }};cursor:pointer;text-align:left;transition:background 160ms" style-hover="border-color:#b8232e">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;opacity:0.7">{{ s.n }}</span>
+            <span style="display:flex;flex-direction:column;gap:3px">
+              <span style="font-size:16px;font-weight:600">{{ s.title }}</span>
+              <span style="font-size:13px;opacity:0.72">{{ s.sub }}</span>
+            </span>
+            <span style="font-size:16px">→</span>
+          </button>
+        </sc-for>
+        <div style="margin-top:auto;padding:18px 20px;font-size:13px;line-height:1.55;color:#6b5853;border-top:1px solid #e2d3c8">Diálogos roteirizados para demonstração. Nenhuma mensagem é enviada ou armazenada.</div>
+      </div>
 
-    <section class="gallery-section section-shell section-space" aria-labelledby="gallery-title"><div class="section-heading"><div><p class="eyebrow">05 / A EXPERIÊNCIA EM CINCO TELAS</p><h2 id="gallery-title">Uma ideia que<br><em>já ganha forma.</em></h2></div><p>Os mockups que orientam o protótipo: uma interface simples, com ações claras e a Melodia por perto.</p></div><div class="gallery-tabs" role="tablist" aria-label="Mockups do MeloThing"><button role="tab" id="tab-0" aria-controls="gallery-panel" aria-selected="true" data-gallery="0">01 <span>Início</span></button><button role="tab" id="tab-1" aria-controls="gallery-panel" aria-selected="false" tabindex="-1" data-gallery="1">02 <span>Explorar trilhas</span></button><button role="tab" id="tab-2" aria-controls="gallery-panel" aria-selected="false" tabindex="-1" data-gallery="2">03 <span>Minha jornada</span></button><button role="tab" id="tab-3" aria-controls="gallery-panel" aria-selected="false" tabindex="-1" data-gallery="3">04 <span>Atividade musical</span></button><button role="tab" id="tab-4" aria-controls="gallery-panel" aria-selected="false" tabindex="-1" data-gallery="4">05 <span>Chat com a Melodia</span></button></div><div id="gallery-panel" class="gallery-panel" role="tabpanel" aria-labelledby="tab-0"><div class="mockup-browser"><span></span><span></span><span></span><p id="gallery-location">MeloThing / Início</p><button id="expand-gallery" aria-label="Ampliar mockup">↗</button></div><img id="gallery-image" src="assets/mockups/01_inicio.png" alt="Mockup da tela inicial do MeloThing" loading="lazy" width="1586" height="992"></div><div class="gallery-caption"><p id="gallery-description">Retome seus estudos, acompanhe seu ritmo e encontre o próximo passo com a Melodia.</p><span>REFERÊNCIA VISUAL · GERADA POR IA</span></div></section>
+      <div style="flex:2 1 520px;min-width:0;display:flex;flex-direction:column;height:640px;max-height:80vh;background:#fffaf6;border-radius:28px;border:1px solid #e2d3c8;box-shadow:0 40px 80px -50px rgba(90,20,25,0.45);overflow:hidden">
+        <div style="display:flex;align-items:center;gap:14px;padding:16px 20px;border-bottom:1px solid #eee1d8">
+          <div style="position:relative;width:46px;height:46px;border-radius:50%;overflow:hidden;background:#1c1113;flex-shrink:0">
+            <img src="assets/melodia.webp" alt="" style="position:absolute;width:190%;left:-45%;top:-4%">
+          </div>
+          <div style="flex:1;min-width:0">
+            <div style="font-weight:700;font-size:16px">MelodI.A</div>
+            <div style="display:flex;align-items:center;gap:6px;font-size:13px;color:#6b5853"><span style="width:7px;height:7px;border-radius:50%;background:#2f9e5b"></span>{{ chatStatus }}</div>
+          </div>
+          <button onClick="{{ restartChat }}" title="Recomeçar conversa" style="height:38px;padding:0 14px;border-radius:999px;border:1px solid #e2d3c8;background:transparent;color:#1c1113;font-size:13px;cursor:pointer" style-hover="border-color:#b8232e;color:#b8232e">Recomeçar</button>
+        </div>
+        <div ref="{{ msgsRef }}" style="flex:1;overflow-y:auto;padding:24px 20px;display:flex;flex-direction:column;gap:12px">
+          <sc-for list="{{ messages }}" as="m" hint-placeholder-count="2">
+            <sc-if value="{{ m.bot }}" hint-placeholder-val="{{ true }}">
+              <div style="align-self:flex-start;max-width:78%;padding:13px 17px;background:#f1e3da;color:#1c1113;border-radius:20px 20px 20px 6px;font-size:15.5px;line-height:1.5;text-wrap:pretty">{{ m.text }}</div>
+            </sc-if>
+            <sc-if value="{{ m.user }}" hint-placeholder-val="{{ false }}">
+              <div style="align-self:flex-end;max-width:78%;padding:13px 17px;background:#b8232e;color:#fff;border-radius:20px 20px 6px 20px;font-size:15.5px;line-height:1.5">{{ m.text }}</div>
+            </sc-if>
+          </sc-for>
+          <sc-if value="{{ typing }}" hint-placeholder-val="{{ false }}">{{ typingEl }}</sc-if>
+        </div>
+        <div style="padding:14px 16px 16px;border-top:1px solid #eee1d8;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;flex-wrap:wrap;gap:8px;min-height:40px">
+            <sc-for list="{{ choices }}" as="c" hint-placeholder-count="2">
+              <button onClick="{{ c.act }}" style="height:40px;padding:0 16px;border-radius:999px;border:1px solid #d9b9ae;background:#fff;color:#8e1c25;font-size:14px;font-weight:600;cursor:pointer" style-hover="background:#b8232e;color:#fff;border-color:#b8232e">{{ c.label }}</button>
+            </sc-for>
+          </div>
+          <form onSubmit="{{ submitText }}" style="display:flex;gap:8px;margin:0">
+            <input value="{{ input }}" onChange="{{ onInput }}" placeholder="Escreva para a MelodI.A…" maxlength="300" style="flex:1;min-width:0;height:50px;padding:0 20px;border-radius:999px;border:1px solid #e2d3c8;background:#f9f1eb;font-family:inherit;font-size:15px;color:#1c1113;outline:none" style-focus="border-color:#b8232e;background:#fff">
+            <button type="submit" aria-label="Enviar" style="width:50px;height:50px;border-radius:50%;border:0;background:#1c1113;color:#fff;font-size:18px;cursor:pointer" style-hover="background:#b8232e">↑</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section class="project-section section-space" id="projeto" aria-labelledby="project-title"><div class="section-shell"><div class="section-heading"><div><p class="eyebrow">06 / DA IDEIA AO PROTÓTIPO</p><h2 id="project-title">Uma personagem.<br><em>Um projeto por trás.</em></h2></div><p>A experiência parte do escopo, dos casos de uso e da modelagem de dados do MeloThing. Aqui está o que sustenta esta primeira versão.</p></div><div class="project-columns"><div class="project-summary"><span class="panel-eyebrow">OBJETIVO</span><h3>Apoiar quem está<br>aprendendo música.</h3><p>A Melodia orienta a escolha de trilhas, esclarece conceitos e acompanha a prática. A atividade e a descoberta permanecem com o estudante.</p><div class="project-boundary"><span aria-hidden="true">✦</span><p><strong>O limite faz parte da personalidade.</strong> Quando alguém pede uma resposta pronta, ela oferece pistas e convida a tentar.</p></div><button class="button button-red" id="open-presentation">Abrir apresentação <span aria-hidden="true">↗</span></button></div><div class="project-accordions"><details open><summary>Arquitetura e tecnologias <span aria-hidden="true">+</span></summary><div class="detail-body"><p><strong>Nesta versão:</strong> HTML, CSS e JavaScript. Interface responsiva, cinco fluxos com estados e decisões, e uma atividade de pulsação com áudio gerado no navegador.</p><div class="architecture-line"><span>Interface</span><b>→</b><span>Motor de conversa</span><b>→</b><span>Respostas locais</span></div><p><strong>Próxima etapa:</strong> serviço de aplicação para conectar a IA com segurança, aplicar as regras pedagógicas e consultar dados reais mediante autenticação.</p></div></details><details><summary>Casos de uso e dados <span aria-hidden="true">+</span></summary><div class="detail-body"><p><strong>Estudante:</strong> escolher trilhas, realizar atividades, consultar a IA e acompanhar o progresso. <strong>Criador:</strong> organizar e publicar trilhas mediante autorização. <strong>Administrador:</strong> gerenciar e moderar conteúdos.</p><p>A modelagem relaciona usuários, trilhas, etapas, conteúdos, exercícios, matrículas, progresso e interações com a IA. No protótipo, os exemplos são locais e ilustrativos.</p><p>Referências: RF03–RF08 e RN03, RN04, RN08 e RN10 do documento-base.</p></div></details><details><summary>O que você pode demonstrar <span aria-hidden="true">+</span></summary><div class="detail-body"><ol><li>A identidade e a descrição da Melodia.</li><li>A imagem da personagem, criada com IA.</li><li>A navegação, os cinco fluxos e a prática de pulsação.</li><li>A apresentação guiada do chatbot.</li><li>Os fluxos completos e a documentação técnica.</li></ol><p>A integração com IA generativa está prevista para a próxima versão. O chat atual simula o comportamento da assistente.</p></div></details><details><summary>Documentação do projeto <span aria-hidden="true">+</span></summary><div class="detail-body documentation-links"><a href="docs/projeto-melodia.md" download>Descrição, objetivos e arquitetura <span>↓ .md</span></a><a href="docs/fluxos-conversacionais.md" download>Cinco fluxos conversacionais completos <span>↓ .md</span></a><a href="assets/personagem-original.png" download>Imagem original da personagem <span>↓ .png</span></a><a href="docs/roteiro-demonstracao.md" download>Roteiro da demonstração <span>↓ .md</span></a></div></details></div></div></div></section>
+<section id="cursos" data-screen-label="Cursos" style="background:#f4ebe3;color:#1c1113;padding:40px 24px 140px">
+  <div style="max-width:1280px;margin:0 auto">
+    <div data-reveal="" style="display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;padding-top:100px;border-top:1px solid #e2d3c8">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#b8232e">03 — Catálogo</div>
+        <h2 style="margin:20px 0 0;font-family:'Bodoni Moda',serif;font-weight:500;font-size:clamp(44px,5.6vw,80px);line-height:0.98;letter-spacing:-0.02em">Escolha <em style="color:#b8232e">sua trilha.</em></h2>
+      </div>
+      <div style="display:flex;gap:4px;padding:5px;background:#eadccf;border-radius:999px">
+        <sc-for list="{{ filters }}" as="f" hint-placeholder-count="3">
+          <button onClick="{{ f.go }}" style="height:40px;padding:0 20px;border-radius:999px;border:0;background:{{ f.bg }};color:{{ f.fg }};font-size:14px;font-weight:600;cursor:pointer;transition:background 160ms">{{ f.label }}</button>
+        </sc-for>
+      </div>
+    </div>
 
-    <section class="closing-section section-shell"><span class="closing-star" aria-hidden="true">✦</span><p class="eyebrow">O PRÓXIMO PASSO É SEU</p><h2>Toda descoberta<br>começa com <em>curiosidade.</em></h2><a href="#experimente" class="button button-dark">Converse com a Melodia <span aria-hidden="true">↗</span></a><span class="closing-note" aria-hidden="true">♫</span></section>
-  </main>
-  <footer class="site-footer section-shell"><a class="brand" href="#inicio"><span class="brand-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>Melo<span>Thing</span></a><p>Melodia · Assistente de aprendizagem musical</p><span>Protótipo acadêmico · 2026</span></footer>
+    <div data-reveal="" style="margin-top:48px;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:20px">
+      <sc-for list="{{ courses }}" as="c" hint-placeholder-count="6">
+        <article style="display:flex;flex-direction:column;background:#fffaf6;border:1px solid #e2d3c8;border-radius:24px;overflow:hidden;transition:transform 220ms,box-shadow 220ms" style-hover="transform:translateY(-4px);box-shadow:0 30px 60px -40px rgba(90,20,25,0.5)">
+          <div style="position:relative;height:190px;background:#1c1113;overflow:hidden">
+            <div style="position:absolute;left:24px;top:18px;font-family:'Bodoni Moda',serif;font-style:italic;font-size:110px;line-height:1;color:#e0333f;letter-spacing:-0.04em">{{ c.mono }}</div>
+            <div style="position:absolute;right:20px;top:20px;padding:6px 12px;border-radius:999px;background:{{ c.badgeBg }};color:{{ c.badgeFg }};font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-weight:500">{{ c.badge }}</div>
+            <div style="position:absolute;left:0;right:0;bottom:0;height:46px;background:repeating-linear-gradient(90deg,#f6ebe4 0 calc(100%/14 - 2px),#1c1113 calc(100%/14 - 2px) calc(100%/14))"></div>
+            <div style="position:absolute;right:24px;bottom:60px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#cdb9b2">{{ c.inst }}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px;padding:24px;flex:1">
+            <h3 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.01em">{{ c.t }}</h3>
+            <p style="margin:0;font-size:15px;line-height:1.55;color:#6b5853;text-wrap:pretty">{{ c.desc }}</p>
+            <div style="display:flex;gap:16px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#6b5853">
+              <span>{{ c.lvl }}</span><span>{{ c.les }} aulas</span><span>{{ c.dur }}</span>
+            </div>
+            <div style="margin-top:auto;padding-top:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid #eee1d8">
+              <span style="font-family:'Bodoni Moda',serif;font-size:28px;font-weight:600">{{ c.priceLabel }}</span>
+              <button onClick="{{ c.act }}" style="height:44px;padding:0 20px;border-radius:999px;border:0;background:{{ c.btnBg }};color:#fff;font-size:14px;font-weight:600;cursor:pointer" style-hover="background:#e0333f">{{ c.cta }}</button>
+            </div>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+  </div>
+</section>
 
-  <dialog id="image-dialog" class="image-dialog" aria-labelledby="expanded-caption"><button class="dialog-close icon-button" aria-label="Fechar imagem">×</button><img id="expanded-image" alt=""><p id="expanded-caption"></p></dialog>
-  <dialog id="practice-dialog" class="practice-dialog" aria-labelledby="practice-title"><button class="dialog-close icon-button" aria-label="Fechar atividade">×</button><p class="eyebrow">PIANO DO ZERO / RITMO E PULSAÇÃO</p><h2 id="practice-title">Vamos sentir<br><em>a pulsação?</em></h2><p>Ouça quatro batidas. Depois, acompanhe o pulso usando o botão ou a tecla espaço.</p><div class="beat-indicators" aria-hidden="true"><span></span><span></span><span></span><span></span></div><div class="practice-controls"><button class="button button-dark" id="listen-beats">Ouvir exemplo ♫</button><button class="button button-red" id="start-tapping">Começar tentativa ↗</button></div><button id="tap-button" class="tap-button" disabled>Marcar pulso <span>ou pressione espaço</span></button><p id="practice-status" class="practice-status" role="status">São quatro batidas regulares, a 80 BPM. Sem microfone.</p><button class="text-link" id="practice-help">Pedir uma dica à Melodia ↗</button><p class="micro-copy">Atividade local demonstrativa. Compara os intervalos entre quatro toques; não analisa instrumento ou voz.</p></dialog>
-  <dialog id="presentation-dialog" class="presentation-dialog" aria-label="Apresentação da Melodia"><button class="dialog-close icon-button" aria-label="Fechar apresentação">×</button><div id="presentation-content"></div><div class="presentation-navigation"><button class="text-link" id="presentation-prev">← Anterior</button><span id="presentation-count"></span><button class="button button-red" id="presentation-next">Próximo →</button></div></dialog>
+<section id="pratica" data-screen-label="Prática" style="background:#110a0b;padding:140px 24px">
+  <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:64px;align-items:center">
+    <div data-reveal="">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#f0b7ad">04 — Prática guiada</div>
+      <h2 style="margin:20px 0 0;font-family:'Bodoni Moda',serif;font-weight:500;font-size:clamp(44px,5.6vw,80px);line-height:0.98;letter-spacing:-0.02em">Sinta a <em style="color:#e0333f">pulsação.</em></h2>
+      <p style="margin:24px 0 0;font-size:18px;line-height:1.6;color:#cdb9b2;max-width:480px">Uma etapa da trilha Piano do zero. Ouça quatro batidas a 80 BPM e repita no seu ritmo — com o botão ou a barra de espaço.</p>
+      <div style="margin-top:44px;display:flex;flex-direction:column">
+        <sc-for list="{{ trail }}" as="t" hint-placeholder-count="5">
+          <div style="display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid rgba(246,235,228,0.08)">
+            <span style="width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;background:{{ t.dotBg }};color:{{ t.dotFg }};border:1px solid {{ t.dotBorder }}">{{ t.mark }}</span>
+            <span style="font-size:17px;color:{{ t.fg }};font-weight:{{ t.weight }}">{{ t.name }}</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:{{ t.tagFg }}">{{ t.tag }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div data-reveal="" style="padding:40px;border-radius:32px;background:#1c1113;border:1px solid rgba(246,235,228,0.09);box-shadow:0 60px 120px -60px rgba(224,51,63,0.5)">
+      <div style="display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#a8918a">
+        <span>Ritmo e pulsação</span><span style="color:#f0b7ad">80 BPM · 4/4</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:40px 0">
+        <sc-for list="{{ beats }}" as="b" hint-placeholder-count="4">
+          <div style="aspect-ratio:1;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bodoni Moda',serif;font-size:32px;background:{{ b.bg }};color:{{ b.fg }};border:1px solid {{ b.border }};transition:background 90ms,color 90ms;box-shadow:{{ b.glow }}">{{ b.n }}</div>
+        </sc-for>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button onClick="{{ listenBeats }}" style="flex:1;min-width:160px;height:52px;border-radius:999px;border:1px solid rgba(246,235,228,0.2);background:transparent;color:#f6ebe4;font-size:15px;font-weight:600;cursor:pointer" style-hover="border-color:#f6ebe4">Ouvir exemplo</button>
+        <button onClick="{{ startTapping }}" style="flex:1;min-width:160px;height:52px;border-radius:999px;border:0;background:#e0333f;color:#fff;font-size:15px;font-weight:600;cursor:pointer" style-hover="background:#f04450">Começar tentativa</button>
+      </div>
+      <button ref="{{ tapRef }}" onMouseDown="{{ tap }}" style="margin-top:14px;width:100%;height:120px;border-radius:24px;border:1px dashed {{ tapBorder }};background:{{ tapBg }};color:{{ tapFg }};font-size:18px;font-weight:600;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px">
+        Marcar pulso
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;opacity:0.7">ou pressione espaço</span>
+      </button>
+      <div style="margin-top:24px;display:flex;gap:14px;align-items:flex-start;padding:18px 20px;border-radius:18px;background:#110a0b">
+        <div style="position:relative;width:40px;height:40px;border-radius:50%;overflow:hidden;background:#2a1719;flex-shrink:0">
+          <img src="assets/melodia.webp" alt="" style="position:absolute;width:190%;left:-45%;top:-4%">
+        </div>
+        <p style="margin:0;font-size:15px;line-height:1.55;color:#e6d5ce;text-wrap:pretty">{{ practiceMsg }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="planos" data-screen-label="Planos" style="background:#170d0f;padding:140px 24px;border-top:1px solid rgba(246,235,228,0.07)">
+  <div style="max-width:1280px;margin:0 auto">
+    <div data-reveal="" style="text-align:center;max-width:760px;margin:0 auto">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#f0b7ad">05 — Precificação</div>
+      <h2 style="margin:20px 0 0;font-family:'Bodoni Moda',serif;font-weight:500;font-size:clamp(44px,5.6vw,80px);line-height:0.98;letter-spacing:-0.02em">Comece de graça. <em style="color:#e0333f">Evolua no seu tempo.</em></h2>
+    </div>
+    <div data-reveal="" style="margin-top:64px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:20px;align-items:stretch">
+      <div style="display:flex;flex-direction:column;padding:36px;border-radius:28px;background:#1f1214;border:1px solid rgba(246,235,228,0.09)">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#a8918a">Gratuito</div>
+        <div style="margin-top:28px;display:flex;align-items:baseline;gap:6px"><span style="font-size:18px;color:#cdb9b2">R$</span><span style="font-family:'Bodoni Moda',serif;font-size:72px;line-height:1;font-weight:500">0</span></div>
+        <p style="margin:16px 0 0;font-size:16px;line-height:1.55;color:#cdb9b2">Para dar os primeiros passos sem compromisso.</p>
+        <div style="margin:28px 0;display:flex;flex-direction:column;gap:12px;font-size:15px;color:#e6d5ce">
+          <span>— Cursos gratuitos do catálogo</span><span>— MelodI.A para busca e dúvidas</span><span>— Prática de ritmo e ouvido</span>
+        </div>
+        <a href="#cursos" style="margin-top:auto;display:flex;justify-content:center;align-items:center;height:52px;border-radius:999px;border:1px solid rgba(246,235,228,0.22);color:#f6ebe4;font-weight:600" style-hover="border-color:#fff;color:#fff">Criar conta grátis</a>
+      </div>
+
+      <div style="position:relative;display:flex;flex-direction:column;padding:36px;border-radius:28px;background:#b8232e;color:#fff;box-shadow:0 50px 100px -40px rgba(224,51,63,0.6)">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase">Assinatura</span>
+          <span style="padding:6px 12px;border-radius:999px;background:#f6ebe4;color:#8e1c25;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;font-weight:500">Mais escolhida</span>
+        </div>
+        <div style="margin-top:28px;display:flex;align-items:baseline;gap:6px"><span style="font-size:18px">R$</span><span style="font-family:'Bodoni Moda',serif;font-size:72px;line-height:1;font-weight:500">24,90</span><span style="font-size:16px">/ mês</span></div>
+        <p style="margin:16px 0 0;font-size:16px;line-height:1.55;color:#ffe9e4">Todo o catálogo de piano, violão, teoria e produção em uma só assinatura.</p>
+        <div style="margin:28px 0;display:flex;flex-direction:column;gap:12px;font-size:15px">
+          <span>— Todos os cursos pagos e gratuitos</span><span>— Trilhas completas com desafios</span><span>— Cancele quando quiser</span>
+        </div>
+        <button onClick="{{ subscribe }}" style="margin-top:auto;height:52px;border-radius:999px;border:0;background:#fff;color:#8e1c25;font-size:15px;font-weight:700;cursor:pointer" style-hover="background:#1c1113;color:#fff">Assinar agora</button>
+      </div>
+
+      <div style="display:flex;flex-direction:column;padding:36px;border-radius:28px;background:#1f1214;border:1px solid rgba(246,235,228,0.09)">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#a8918a">Curso avulso</div>
+        <div style="margin-top:28px;display:flex;align-items:baseline;gap:6px"><span style="font-size:18px;color:#cdb9b2">R$</span><span style="font-family:'Bodoni Moda',serif;font-size:72px;line-height:1;font-weight:500">{{ avulsoPrice }}</span></div>
+        <p style="margin:16px 0 0;font-size:16px;line-height:1.55;color:#cdb9b2">Pagamento único. O curso é seu para sempre.</p>
+        <div style="margin:28px 0;display:flex;flex-direction:column;gap:8px">
+          <sc-for list="{{ avulsoOpts }}" as="o" hint-placeholder-count="3">
+            <button onClick="{{ o.go }}" style="display:flex;justify-content:space-between;align-items:center;height:46px;padding:0 16px;border-radius:14px;border:1px solid {{ o.border }};background:{{ o.bg }};color:#f6ebe4;font-size:14px;cursor:pointer;text-align:left">
+              <span>{{ o.t }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#cdb9b2">{{ o.p }}</span>
+            </button>
+          </sc-for>
+        </div>
+        <button onClick="{{ buyAvulso }}" style="margin-top:auto;height:52px;border-radius:999px;border:1px solid rgba(246,235,228,0.22);background:transparent;color:#f6ebe4;font-size:15px;font-weight:600;cursor:pointer" style-hover="border-color:#fff">Comprar curso</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="telas" data-screen-label="Telas" style="background:#f4ebe3;color:#1c1113;padding:140px 24px">
+  <div style="max-width:1280px;margin:0 auto">
+    <div data-reveal="" style="display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#b8232e">06 — Protótipo</div>
+        <h2 style="margin:20px 0 0;font-family:'Bodoni Moda',serif;font-weight:500;font-size:clamp(44px,5.6vw,80px);line-height:0.98;letter-spacing:-0.02em">Por dentro <em style="color:#b8232e">do app.</em></h2>
+      </div>
+      <p style="margin:0;max-width:380px;font-size:17px;line-height:1.6;color:#6b5853">{{ screenDesc }}</p>
+    </div>
+    <div data-reveal="" style="margin-top:44px;display:flex;flex-wrap:wrap;gap:8px">
+      <sc-for list="{{ screens }}" as="s" hint-placeholder-count="5">
+        <button onClick="{{ s.go }}" style="display:flex;align-items:center;gap:10px;height:44px;padding:0 18px;border-radius:999px;border:1px solid {{ s.border }};background:{{ s.bg }};color:{{ s.fg }};font-size:14px;font-weight:600;cursor:pointer">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;opacity:0.7">{{ s.n }}</span>{{ s.t }}
+        </button>
+      </sc-for>
+    </div>
+    <div data-reveal="" style="margin-top:24px;border-radius:24px;overflow:hidden;background:#1c1113;box-shadow:0 60px 120px -60px rgba(90,20,25,0.55)">
+      <div style="display:flex;align-items:center;gap:8px;padding:14px 18px">
+        <span style="width:11px;height:11px;border-radius:50%;background:#e0333f"></span>
+        <span style="width:11px;height:11px;border-radius:50%;background:#5a3a3d"></span>
+        <span style="width:11px;height:11px;border-radius:50%;background:#5a3a3d"></span>
+        <span style="margin-left:14px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#a8918a">melothing.app / {{ screenSlug }}</span>
+      </div>
+      <sc-if value="{{ scr0 }}" hint-placeholder-val="{{ true }}"><img src="assets/tela-inicio.webp" alt="Tela Início do MeloThing" style="display:block;width:100%;height:auto"></sc-if>
+      <sc-if value="{{ scr1 }}" hint-placeholder-val="{{ false }}"><img src="assets/tela-catalogo.webp" alt="Tela Explorar trilhas do MeloThing" style="display:block;width:100%;height:auto"></sc-if>
+      <sc-if value="{{ scr2 }}" hint-placeholder-val="{{ false }}"><img src="assets/tela-trilha.webp" alt="Tela Minha jornada do MeloThing" style="display:block;width:100%;height:auto"></sc-if>
+      <sc-if value="{{ scr3 }}" hint-placeholder-val="{{ false }}"><img src="assets/tela-atividade.webp" alt="Tela Atividade musical do MeloThing" style="display:block;width:100%;height:auto"></sc-if>
+      <sc-if value="{{ scr4 }}" hint-placeholder-val="{{ false }}"><img src="assets/tela-chat.webp" alt="Tela Chat com a MelodI.A do MeloThing" style="display:block;width:100%;height:auto"></sc-if>
+    </div>
+  </div>
+</section>
+
+<section id="projeto" data-screen-label="Projeto" style="background:#f4ebe3;color:#1c1113;padding:0 24px 140px">
+  <div style="max-width:1280px;margin:0 auto;padding-top:100px;border-top:1px solid #e2d3c8">
+    <div data-reveal="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:64px">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#b8232e">07 — Documentação</div>
+        <h2 style="margin:20px 0 0;font-family:'Bodoni Moda',serif;font-weight:500;font-size:clamp(40px,4.6vw,64px);line-height:1;letter-spacing:-0.02em">Sobre o projeto</h2>
+        <p style="margin:24px 0 0;font-size:17px;line-height:1.65;color:#4f3e3a;text-wrap:pretty">O MeloThing organiza o ensino musical em trilhas, com cursos gratuitos e pagos. A MelodI.A é a assistente virtual que orienta estudantes na escolha de trilhas, explica conceitos, conduz a prática e ajuda na retomada dos estudos.</p>
+        <p style="margin:16px 0 0;font-size:17px;line-height:1.65;color:#4f3e3a;text-wrap:pretty">A interface roda inteiramente no navegador: HTML, CSS e JavaScript. Uma máquina de estados conduz os cinco fluxos de diálogo, a Web Audio API sintetiza notas e batidas, e um modelo de Markov sorteia frases curtas para o treino de ouvido.</p>
+        <div style="margin-top:32px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#6b5853;line-height:1.9">Análise e Desenvolvimento de Sistemas<br>Laboratório de Engenharia de Software</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:40px">
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#6b5853;margin-bottom:8px">Requisitos técnicos</div>
+          <sc-for list="{{ reqs }}" as="r" hint-placeholder-count="6">
+            <div style="display:grid;grid-template-columns:24px minmax(140px,200px) minmax(0,1fr);gap:14px;padding:16px 0;border-bottom:1px solid #e2d3c8;align-items:baseline">
+              <span style="color:#b8232e;font-weight:700">✓</span>
+              <span style="font-weight:600;font-size:16px">{{ r.k }}</span>
+              <span style="font-size:15px;line-height:1.5;color:#6b5853">{{ r.v }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#6b5853;margin-bottom:14px">Entregáveis</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px">
+            <sc-for list="{{ deliverables }}" as="d" hint-placeholder-count="6">
+              <div style="display:flex;gap:12px;align-items:baseline;padding:16px 18px;border-radius:16px;background:#fffaf6;border:1px solid #e2d3c8">
+                <span style="font-family:'Bodoni Moda',serif;font-style:italic;font-size:20px;color:#b8232e">{{ d.n }}</span>
+                <span style="font-size:15px;line-height:1.4">{{ d.t }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer style="background:#110a0b;padding:120px 24px 40px;overflow:hidden">
+  <div style="max-width:1280px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap">
+      <div style="font-family:'Bodoni Moda',serif;font-weight:500;font-size:clamp(72px,15vw,220px);line-height:0.85;letter-spacing:-0.04em">Melod<em style="color:#e0333f">I.A</em></div>
+      <a href="#inicio" style="display:flex;align-items:center;height:56px;padding:0 28px;border-radius:999px;background:#e0333f;color:#fff;font-weight:600" style-hover="background:#f04450;color:#fff">Voltar ao início ↑</a>
+    </div>
+    <div style="margin-top:64px;padding-top:24px;border-top:1px solid rgba(246,235,228,0.1);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#a8918a">
+      <span>MeloThing · Plataforma de cursos de música</span>
+      <span>Protótipo acadêmico · 2026</span>
+    </div>
+  </div>
+</footer>
+
+<sc-if value="{{ fichaOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeFicha }}" style="position:fixed;inset:0;z-index:100;background:rgba(8,4,5,0.92);display:flex;align-items:center;justify-content:center;padding:32px;cursor:zoom-out">
+    <img src="assets/ficha.png" alt="Ficha visual da MelodI.A" style="max-width:100%;max-height:100%;border-radius:12px">
+  </div>
+</sc-if>
+
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:90;display:flex;align-items:center;gap:12px;padding:14px 20px;border-radius:999px;background:#f6ebe4;color:#1c1113;font-size:14px;box-shadow:0 20px 50px -10px rgba(0,0,0,0.5);max-width:calc(100% - 48px)">
+    <span style="width:8px;height:8px;border-radius:50%;background:#e0333f;flex-shrink:0"></span>{{ toast }}
+  </div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;headline&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;nota&quot;,&quot;dentro&quot;,&quot;palco&quot;],&quot;default&quot;:&quot;nota&quot;,&quot;tsType&quot;:&quot;'nota'|'dentro'|'palco'&quot;},&quot;sound&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;motion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const NAMES = ['Dó','Dó♯','Ré','Ré♯','Mi','Fá','Fá♯','Sol','Sol♯','Lá','Lá♯','Si'];
+const WHITES = [60,62,64,65,67,69,71,72,74,76,77,79,81,83,84];
+const KEYMAP = {a:60,w:61,s:62,e:63,d:64,f:65,t:66,g:67,y:68,h:69,u:70,j:71,k:72,o:73,l:74,p:75};
+const LABEL = {}; Object.keys(KEYMAP).forEach(k => LABEL[KEYMAP[k]] = k);
+const hz = m => 440 * Math.pow(2, (m - 69) / 12);
+const noteName = m => NAMES[m % 12] + (Math.floor(m / 12) - 1);
+const norm = s => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+const FLOWS = {
+  trilha: { n:'01', title:'Escolher uma trilha', sub:'Seu primeiro passo', status:'Vamos encontrar sua trilha', start:'t0', nodes:{
+    t0:{say:['Oi! Eu sou a MelodI.A. Vou te ajudar a encontrar um caminho na música.','O que você gostaria de aprender?'], ch:[['Tocar piano','t1'],['Violão','tv'],['Produção musical','tp']]},
+    t1:{say:['Piano, que boa escolha! Como está sua experiência com o instrumento?'], ch:[['Estou começando do zero','t2'],['Já toco um pouco','t1b']]},
+    t1b:{say:['Ótimo! Para quem já tem base, recomendo “Harmonia na prática”. Ou podemos revisar o início para firmar a técnica.'], ch:[['Revisar o início','t2'],['Recomeçar','t0']]},
+    t2:{say:['A trilha “Piano do zero” começa pelo instrumento, segue pelas notas e chega ao ritmo.','Quer explorar a primeira etapa?'], ch:[['Quero começar','t3'],['Ver outra trilha','t0']]},
+    t3:{say:['Combinado! Na primeira etapa, observe os grupos de duas e três teclas pretas — eles ajudam você a se localizar no piano.','Eu não toco por você: vou dando pistas enquanto você pratica.'], ch:[['Ver o catálogo','@cursos'],['Recomeçar','t0']]},
+    tv:{say:['Violão é um ótimo companheiro. “Primeiros acordes no violão” começa com postura, afinação e três acordes básicos.','Você já teve contato com o instrumento?'], ch:[['Nunca toquei','tv2'],['Recomeçar','t0']]},
+    tv2:{say:['Então começamos pela afinação e pela mão do ritmo. Eu indico o caminho; quem toca é você.'], ch:[['Ver o catálogo','@cursos'],['Recomeçar','t0']]},
+    tp:{say:['Produção musical! “Produção musical essencial” apresenta DAW, ritmo e arranjo. Para quem já experimentou, há “Seu primeiro beat”.'], ch:[['Ver o catálogo','@cursos'],['Recomeçar','t0']]}
+  }},
+  conceito: { n:'02', title:'Tirar uma dúvida', sub:'Ritmo e pulsação', status:'Explicando um conceito', start:'c0', nodes:{
+    c0:{say:['Vamos descomplicar uma ideia musical? Você quer entender ritmo e pulsação?'], ch:[['Qual é a diferença?','c1']]},
+    c1:{say:['A pulsação é a batida regular que você acompanha com o pé.','O ritmo é a combinação de sons e pausas organizada sobre essa referência. Quer um exemplo?'], ch:[['Sim, me mostra','c2'],['Ainda está confuso','c1b']]},
+    c1b:{say:['Pense numa caminhada: seus passos regulares são a pulsação. Se você bater palmas curtas e longas enquanto anda, está criando um ritmo.'], ch:[['Agora entendi','c2']]},
+    c2:{say:['Conte “1, 2, 3, 4” em intervalos iguais e repita. Essa referência regular é a pulsação.','Posso te fazer uma pergunta?'], ch:[['Pode perguntar','c3']]},
+    c3:{say:['Quando você acompanha uma música batendo o pé de forma regular, o que está marcando?'], ch:[['A pulsação','c4'],['O ritmo','c3b']]},
+    c3b:{say:['Quase! Sons e pausas variados formam o ritmo. As batidas regulares do pé são outra coisa. Tenta de novo?'], ch:[['A pulsação','c4']]},
+    c4:{say:['Isso! Você identificou a pulsação. Vamos sentir isso na prática?'], ch:[['Abrir prática de pulsação','@pratica'],['Recomeçar','c0']]}
+  }},
+  pratica: { n:'03', title:'Praticar com ajuda', sub:'Escutar e experimentar', status:'Praticando junto', start:'p0', nodes:{
+    p0:{say:['Podemos treinar o pulso ou o ouvido. O que você quer praticar?'], ch:[['Não consigo acompanhar as batidas','p1'],['Treinar o ouvido','pe'],['Faça a atividade por mim','px']]},
+    px:{say:['Essa parte é sua! Eu não executo nem gero a resposta — mas posso te dar uma pista: conte baixinho e mantenha espaços iguais entre os toques.'], ch:[['Tudo bem, vou tentar','p1']]},
+    p1:{say:['Primeiro, ouça sem tentar acertar. Imagine um relógio marcando intervalos iguais.','Na atividade você ouve quatro batidas a 80 BPM e depois faz quatro toques no seu ritmo.'], ch:[['Abrir atividade','@pratica'],['Me dá outra dica','p2']]},
+    p2:{say:['Conte “1 e 2 e 3 e 4” e toque apenas nos números. Menos pressão, mais escuta.'], ch:[['Abrir atividade','@pratica'],['Recomeçar','p0']]},
+    pe:{say:['Vou tocar uma frase curta de quatro notas. Compare a última com a primeira: ela é mais aguda, mais grave ou igual?'], ch:[['Ouvir a frase','#phrase']]}
+  }},
+  progresso: { n:'04', title:'Continuar estudando', sub:'Progresso e próxima etapa', status:'Retomando seus estudos', start:'g0', nodes:{
+    g0:{say:['Vamos retomar? Posso mostrar um exemplo de progresso na trilha “Piano do zero”.'], ch:[['Mostrar meu progresso','g1']]},
+    g1:{say:['“Conhecendo o piano” e “Notas musicais” foram concluídas: 2 de 5 etapas.','O próximo passo é “Ritmo e pulsação”. Como quer seguir?'], ch:[['Continuar em Ritmo e pulsação','g2'],['Pular para o desafio','g1b']]},
+    g1b:{say:['O desafio abre depois das etapas anteriores — é assim que a trilha garante a base. Que tal praticar ou revisar?'], ch:[['Continuar em Ritmo e pulsação','g2']]},
+    g2:{say:['Combinado. Na atividade você ouve batidas e tenta reproduzir intervalos regulares. Ao terminar, pode repetir ou pedir uma dica.'], ch:[['Abrir atividade','@pratica'],['Recomeçar','g0']]}
+  }},
+  criador: { n:'05', title:'Criar uma trilha', sub:'Compartilhar conhecimento', status:'Orientando um criador', start:'k0', nodes:{
+    k0:{say:['Quer compartilhar o que sabe? Posso orientar a organização de uma trilha.','Você já tem autorização de criador no MeloThing?'], ch:[['Sim, sou criador autorizado','k1'],['Ainda não','k0b']]},
+    k0b:{say:['A solicitação de autorização ainda será definida pela plataforma. Mesmo assim, podemos planejar uma ideia — sem publicar.'], ch:[['Vamos planejar','k1']]},
+    k1:{say:['Qual área combina com o que você quer ensinar?'], ch:[['Instrumento para iniciantes','k2'],['Produção musical','k2'],['Teoria musical','k2']]},
+    k2:{say:['Defina o instrumento, quem vai aprender e o que essa pessoa conseguirá praticar ao final.','Uma sequência possível: conhecer, explorar sons e aplicar uma pequena prática.'], ch:[['Como organizo as etapas?','k3']]},
+    k3:{say:['Para cada etapa: objetivo, explicação, exemplo, atividade do estudante e critério de conclusão.','Eu oriento — o planejamento e a autoria continuam com você.'], ch:[['Como funciona a publicação?','k4']]},
+    k4:{say:['Antes de publicar, a trilha passa por revisão dos critérios da plataforma. Só criadores autorizados publicam.'], ch:[['Planejar outra trilha','k1'],['Recomeçar','k0']]}
+  }}
+};
+
+const COURSES = [
+  {t:'Fundamentos de ritmo', inst:'Percussão corporal', lvl:'Iniciante', les:8, dur:'1h40', price:null, mono:'Ri', desc:'Pulso, compasso e subdivisão com exercícios de escuta e palmas.'},
+  {t:'Piano do zero', inst:'Piano', lvl:'Iniciante', les:24, dur:'6h', price:'39,90', mono:'Pi', desc:'Do primeiro contato com o teclado à sua primeira melodia.'},
+  {t:'Leitura de partitura', inst:'Teoria', lvl:'Iniciante', les:10, dur:'2h15', price:null, mono:'Pa', desc:'Pauta, claves e figuras rítmicas, sem mistério.'},
+  {t:'Primeiros acordes no violão', inst:'Violão', lvl:'Iniciante', les:20, dur:'5h', price:'49,90', mono:'Vi', desc:'Postura, afinação e acordes para tocar suas músicas favoritas.'},
+  {t:'Ouvido musical', inst:'Percepção', lvl:'Todos os níveis', les:12, dur:'2h30', price:null, mono:'Ou', desc:'Reconheça intervalos e frases curtas só de ouvir.'},
+  {t:'Produção musical essencial', inst:'Produção', lvl:'Intermediário', les:28, dur:'8h', price:'59,90', mono:'Pr', desc:'DAW, beat, arranjo e uma mixagem básica do começo ao fim.'}
+];
+
+const SCREENS = [
+  {src:'assets/tela-inicio.webp', t:'Início', slug:'inicio', d:'Retome os estudos, acompanhe seu ritmo e encontre o próximo passo com a MelodI.A.'},
+  {src:'assets/tela-catalogo.webp', t:'Explorar trilhas', slug:'explorar', d:'Catálogo com filtros por instrumento, nível e preço — gratuitos e pagos lado a lado.'},
+  {src:'assets/tela-trilha.webp', t:'Minha jornada', slug:'jornada', d:'Etapas concluídas, a etapa atual e as próximas descobertas da trilha.'},
+  {src:'assets/tela-atividade.webp', t:'Atividade musical', slug:'atividade', d:'Prática guiada com pistas da MelodI.A, sem respostas prontas.'},
+  {src:'assets/tela-chat.webp', t:'Chat com a MelodI.A', slug:'chat', d:'Conversa em linguagem natural para buscar cursos e entender conceitos.'}
+];
+
+class Component extends DCLogic {
+  state = {
+    sound: this.props.sound ?? true,
+    active: {}, lastNote: '—',
+    scenario: 'trilha', messages: [], choices: [], typing: false, input: '',
+    filter: 'todos', avulso: 0, screen: 0, fichaOpen: false, toast: '',
+    phase: 'idle', lit: -1, taps: [], practiceMsg: 'Ouça o exemplo primeiro. Quando estiver pronto, comece a tentativa e marque quatro pulsos.'
+  };
+  staffRef = React.createRef(); playheadRef = React.createRef(); mascotRef = React.createRef();
+  msgsRef = React.createRef(); tapRef = React.createRef();
+  token = 0; gestured = false;
+
+  componentDidMount() {
+    const motion = this.props.motion ?? true;
+    this.onGesture = () => { this.gestured = true; };
+    window.addEventListener('pointerdown', this.onGesture, true);
+    this.onKey = e => {
+      const tag = (e.target && e.target.tagName) || '';
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || e.metaKey || e.ctrlKey) return;
+      this.gestured = true;
+      if (e.code === 'Space' && this.state.phase === 'tapping') { e.preventDefault(); this.tap(); return; }
+      if (e.repeat) return;
+      const m = KEYMAP[e.key.toLowerCase()];
+      if (m) this.play(m);
+    };
+    window.addEventListener('keydown', this.onKey);
+    this.startScenario('trilha', true);
+
+    if (motion) {
+      this.mx = 0; this.my = 0;
+      this.onMove = e => { this.mx = e.clientX / innerWidth - 0.5; this.my = e.clientY / innerHeight - 0.5; };
+      window.addEventListener('mousemove', this.onMove);
+      const eqs = Array.from(document.querySelectorAll('[data-eq]'));
+      const t0 = performance.now();
+      const loop = now => {
+        const t = (now - t0) / 1000;
+        const m = this.mascotRef.current;
+        if (m) m.style.transform = `translate(${this.mx * -14}px, ${Math.sin(t * 1.1) * 10 + this.my * -8}px) rotate(${Math.sin(t * 0.6) * 0.8}deg)`;
+        const p = this.playheadRef.current;
+        if (p) p.style.left = ((t / 9) % 1 * 100) + '%';
+        eqs.forEach((el, i) => { el.style.height = (7 + Math.abs(Math.sin(t * (2.2 + i * 0.7) + i)) * 15) + 'px'; });
+        this.raf = requestAnimationFrame(loop);
+      };
+      this.raf = requestAnimationFrame(loop);
+
+      const els = Array.from(document.querySelectorAll('[data-reveal]')).filter(el => el.getBoundingClientRect().top > innerHeight);
+      if ('IntersectionObserver' in window) {
+        els.forEach(el => { el.style.opacity = '0'; el.style.transform = 'translateY(32px)'; el.style.transition = 'opacity 900ms cubic-bezier(.2,.7,.2,1), transform 900ms cubic-bezier(.2,.7,.2,1)'; });
+        this.io = new IntersectionObserver(ents => ents.forEach(en => { if (en.isIntersecting) { en.target.style.opacity = '1'; en.target.style.transform = 'none'; this.io.unobserve(en.target); } }), {threshold: 0.08});
+        els.forEach(el => this.io.observe(el));
+      }
+    }
+  }
+  componentWillUnmount() {
+    cancelAnimationFrame(this.raf); this.io && this.io.disconnect();
+    window.removeEventListener('keydown', this.onKey); window.removeEventListener('pointerdown', this.onGesture, true);
+    this.onMove && window.removeEventListener('mousemove', this.onMove);
+  }
+  componentDidUpdate() {
+    const m = this.state.messages, t = this.state.typing;
+    if (m !== this._pm || t !== this._pt) {
+      this._pm = m; this._pt = t;
+      const el = this.msgsRef.current; if (el) el.scrollTo({top: el.scrollHeight, behavior: 'smooth'});
+    }
+  }
+
+  ac() {
+    if (!this.ctx) {
+      this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+      this.master = this.ctx.createGain(); this.master.gain.value = 0.9;
+      const comp = this.ctx.createDynamicsCompressor(); this.master.connect(comp); comp.connect(this.ctx.destination);
+    }
+    if (this.ctx.state === 'suspended') this.ctx.resume();
+    return this.ctx;
+  }
+  tone(freq, o = {}) {
+    if (!this.state.sound || !this.gestured) return;
+    const {dur = 1.2, vol = 0.16, when = 0, type = 'triangle', bright = 2600} = o;
+    const ctx = this.ac(); const t = ctx.currentTime + when;
+    const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.008); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    const f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.setValueAtTime(bright, t); f.frequency.exponentialRampToValueAtTime(600, t + dur);
+    const o1 = ctx.createOscillator(); o1.type = type; o1.frequency.value = freq;
+    const o2 = ctx.createOscillator(); o2.type = 'sine'; o2.frequency.value = freq * 2; const g2 = ctx.createGain(); g2.gain.value = 0.25;
+    o1.connect(g); o2.connect(g2); g2.connect(g); g.connect(f); f.connect(this.master);
+    o1.start(t); o2.start(t); o1.stop(t + dur + 0.05); o2.stop(t + dur + 0.05);
+  }
+  blip() { this.tone(1318.5, {dur: 0.16, vol: 0.05, type: 'sine'}); this.tone(1975.5, {dur: 0.2, vol: 0.035, when: 0.06, type: 'sine'}); }
+  tick(accent) { this.tone(accent ? 1760 : 1174.7, {dur: 0.09, vol: accent ? 0.22 : 0.16, type: 'sine', bright: 5000}); }
+  ui() { this.tone(880, {dur: 0.07, vol: 0.04, type: 'sine'}); }
+
+  play(m) {
+    this.gestured = true;
+    this.tone(hz(m));
+    this.setState(s => ({active: {...s.active, [m]: true}, lastNote: noteName(m)}));
+    setTimeout(() => this.setState(s => { const a = {...s.active}; delete a[m]; return {active: a}; }), 220);
+    this.spawnNote(m);
+  }
+  spawnNote(m) {
+    const host = this.staffRef.current, ph = this.playheadRef.current;
+    if (!host || !(this.props.motion ?? true)) return;
+    const el = document.createElement('span');
+    el.textContent = m % 2 ? '♫' : '♪';
+    const y = 150 - ((m - 60) / 24) * 150;
+    const left = ph && ph.style.left ? ph.style.left : (20 + Math.random() * 60) + '%';
+    el.style.cssText = `position:absolute;left:${left};top:${y - 20}px;font-family:'Bodoni Moda',serif;font-size:34px;color:#e0333f;text-shadow:0 0 20px rgba(224,51,63,.6);pointer-events:none`;
+    host.appendChild(el);
+    const a = el.animate([{opacity: 0, transform: 'translateY(10px) scale(.7)'}, {opacity: 1, transform: 'translateY(0) scale(1)', offset: 0.15}, {opacity: 0, transform: 'translateY(-70px) scale(1.1)'}], {duration: 1800, easing: 'cubic-bezier(.2,.7,.2,1)'});
+    a.onfinish = () => el.remove();
+  }
+  singMotif() {
+    this.gestured = true;
+    [72, 76, 79, 84, 79, 83].forEach((m, i) => setTimeout(() => this.play(m), i * 150));
+    const el = this.mascotRef.current;
+    if (el && el.parentElement) el.parentElement.animate([{transform: 'scale(1)'}, {transform: 'scale(1.03)'}, {transform: 'scale(1)'}], {duration: 600, easing: 'ease-out'});
+  }
+
+  // chat
+  startScenario(key, silent) {
+    const tok = ++this.token;
+    this.setState({scenario: key, messages: [], choices: [], typing: false});
+    if (!silent) this.ui();
+    this.goto(key, FLOWS[key].start, tok);
+  }
+  goto(key, id, tok = this.token) {
+    const node = FLOWS[key].nodes[id];
+    this.say(node.say, node.ch.map(c => ({label: c[0], next: c[1]})), tok);
+  }
+  say(lines, choices, tok = this.token) {
+    let delay = 350;
+    this.setState({typing: true, choices: []});
+    lines.forEach((line, i) => {
+      delay += Math.min(1400, 500 + line.length * 11);
+      setTimeout(() => {
+        if (tok !== this.token) return;
+        this.blip();
+        this.setState(s => ({messages: [...s.messages, {from: 'bot', text: line}], typing: i < lines.length - 1, choices: i === lines.length - 1 ? choices : []}));
+      }, delay);
+    });
+  }
+  userSays(text) { this.setState(s => ({messages: [...s.messages, {from: 'user', text}], choices: []})); }
+  choose(c) {
+    this.gestured = true; this.ui();
+    this.userSays(c.label);
+    const key = this.state.scenario, n = c.next, flow = FLOWS[key];
+    if (n[0] === '@') {
+      this.say(['Te levo até lá agora.'], [{label: 'Recomeçar conversa', next: flow.start}]);
+      setTimeout(() => this.scrollTo(n.slice(1)), 1200);
+    } else if (n === '#phrase' || n === '#replay') {
+      if (n === '#phrase') this.makePhrase();
+      setTimeout(() => this.playPhrase(), 300);
+      this.say([n === '#phrase' ? 'Ouça com atenção…' : 'Mais uma vez. Foque só na primeira e na última nota.'], this.answerChoices());
+    } else if (n.startsWith('#ans:')) {
+      const ph = this.phrase, d = ph[3] - ph[0];
+      const right = d > 0 ? 'up' : d < 0 ? 'down' : 'same';
+      if (n.slice(5) === right) this.say(['Isso! Você percebeu bem.', 'As notas eram ' + ph.map(m => NAMES[m % 12]).join(' – ') + '.'], [{label: 'Outra frase', next: '#phrase'}, {label: 'Recomeçar', next: flow.start}]);
+      else this.say(['Quase! Ouça de novo e compare só a primeira e a última nota.'], [{label: 'Ouvir de novo', next: '#replay'}, ...this.answerChoices()]);
+    } else this.goto(key, n);
+  }
+  answerChoices() { return [{label: 'Mais aguda', next: '#ans:up'}, {label: 'Mais grave', next: '#ans:down'}, {label: 'Igual', next: '#ans:same'}]; }
+  makePhrase() {
+    const scale = [60, 62, 64, 65, 67, 69, 71, 72];
+    const steps = [-2, -1, -1, 1, 1, 2, 0, 3, -3];
+    let i = Math.floor(Math.random() * 6) + 1; const out = [scale[i]];
+    for (let k = 0; k < 3; k++) { i = Math.max(0, Math.min(7, i + steps[Math.floor(Math.random() * steps.length)])); out.push(scale[i]); }
+    this.phrase = out;
+  }
+  playPhrase() { (this.phrase || []).forEach((m, i) => setTimeout(() => this.play(m), i * 480)); }
+  scrollTo(id) { const el = document.getElementById(id); if (el) window.scrollTo({top: el.getBoundingClientRect().top + window.scrollY - 20, behavior: 'smooth'}); }
+  submitText(e) {
+    e.preventDefault();
+    const text = this.state.input.trim(); if (!text) return;
+    this.setState({input: ''});
+    const t = norm(text);
+    const ch = this.state.choices;
+    const match = ch.find(c => { const l = norm(c.label); return l.includes(t) || l.split(/\s+/).filter(w => w.length > 3).some(w => t.includes(w)); });
+    if (match) { this.choose({...match, label: text}); return; }
+    this.userSays(text);
+    if (/obrigad|valeu/.test(t)) this.say(['Por nada! Seguimos quando você quiser.'], ch);
+    else if (/^(oi|ola|bom dia|boa tarde|boa noite)/.test(t)) this.say(['Oi! Que bom te ver por aqui. Escolha uma das sugestões para seguirmos.'], ch);
+    else this.say(['Ainda não reconheço essa resposta nesta demonstração. Tente uma das sugestões abaixo.'], ch);
+  }
+
+  // practice
+  listenBeats() {
+    this.gestured = true; clearTimeout(this.bt);
+    this.setState({phase: 'listening', taps: [], practiceMsg: 'Escute. Um, dois, três, quatro — intervalos iguais.'});
+    [0, 1, 2, 3].forEach(i => setTimeout(() => { this.tick(i === 0); this.setState({lit: i}); }, 300 + i * 750));
+    this.bt = setTimeout(() => this.setState({lit: -1, phase: 'idle', practiceMsg: 'Sentiu? Agora é sua vez. Clique em “Começar tentativa”.'}), 300 + 4 * 750);
+  }
+  startTapping() { this.gestured = true; this.ui(); this.setState({phase: 'tapping', taps: [], lit: -1, practiceMsg: 'Marque quatro pulsos no seu ritmo. Conte baixinho se ajudar.'}); }
+  tap() {
+    if (this.state.phase !== 'tapping') { this.setState({practiceMsg: 'Clique em “Começar tentativa” antes de marcar os pulsos.'}); return; }
+    const now = performance.now(); const taps = [...this.state.taps, now];
+    this.tick(taps.length === 1);
+    const b = this.tapRef.current; if (b) b.animate([{transform: 'scale(.97)'}, {transform: 'scale(1)'}], {duration: 180});
+    if (taps.length < 4) { this.setState({taps, lit: taps.length - 1}); return; }
+    const iv = [taps[1] - taps[0], taps[2] - taps[1], taps[3] - taps[2]];
+    const avg = iv.reduce((a, b) => a + b, 0) / 3; const spread = Math.max(...iv) - Math.min(...iv);
+    let msg;
+    if (spread < 110 && Math.abs(avg - 750) < 90) msg = `Pulso firme! Seus intervalos ficaram em torno de ${Math.round(avg)} ms — muito perto dos 750 ms do exemplo.`;
+    else if (spread >= 160) msg = `Os espaços entre os toques variaram ${Math.round(spread)} ms. Conte “1, 2, 3, 4” em voz baixa e tente de novo.`;
+    else if (avg < 750) msg = `Você acelerou um pouco (média de ${Math.round(avg)} ms). Ouça o exemplo outra vez e segure a vontade de adiantar.`;
+    else msg = `Você ficou um pouco mais lento (média de ${Math.round(avg)} ms). Tente sentir o pulso no corpo antes de tocar.`;
+    this.setState({taps, lit: 3, phase: 'done', practiceMsg: msg});
+    setTimeout(() => this.setState(s => s.phase === 'done' ? {lit: -1} : null), 900);
+  }
+
+  flash(msg) { clearTimeout(this.tt); this.setState({toast: msg}); this.tt = setTimeout(() => this.setState({toast: ''}), 3200); }
+
+  renderVals() {
+    const s = this.state;
+    const h = this.props.headline ?? 'nota';
+    const whiteKeys = WHITES.map(m => {
+      const hasBlack = [0, 2, 5, 7, 9].includes(m % 12) && m < 84; const bm = m + 1;
+      return {
+        bg: s.active[m] ? '#f0b7ad' : '#f6ebe4', label: LABEL[m] || '', hasBlack,
+        bbg: s.active[bm] ? '#e0333f' : '#1c1113', blabel: LABEL[bm] || '',
+        down: e => { e.preventDefault(); this.play(m); },
+        bdown: e => { e.preventDefault(); e.stopPropagation(); this.play(bm); }
+      };
+    });
+    const persona = [
+      {k: 'Nome', v: 'MelodI.A — melodia + inteligência artificial'},
+      {k: 'Idade aparente', v: 'Atemporal. Uma forma musical, sem idade humana definida.'},
+      {k: 'Tom de voz', v: 'Amigável, jovem e curioso — nunca professoral.'},
+      {k: 'Comunicação', v: 'Frases curtas, perguntas que fazem pensar e exemplos para experimentar na hora.'},
+      {k: 'Pele', v: 'Vermelha, formada por fitas translúcidas que se movem como som.'},
+      {k: 'Cabelo', v: 'Cachos duplos de fitas de partitura, com notas musicais impressas.'},
+      {k: 'Olhos e rosto', v: 'Rosto oval com olhos de ondas sonoras luminosas.'},
+      {k: 'Expressão', v: 'Sorriso acolhedor e curioso. Também alegre, surpresa, pensativa e determinada.'},
+      {k: 'Vestimenta', v: 'Vestido com corpete, busto em pauta musical, saia em teclas de piano e laço com coração.'},
+      {k: 'Acessibilidade', v: 'Respostas em texto, navegação por teclado e práticas que dispensam microfone.'}
+    ];
+    const scenarios = Object.keys(FLOWS).map(k => {
+      const on = s.scenario === k, f = FLOWS[k];
+      return {n: f.n, title: f.title, sub: f.sub, bg: on ? '#1c1113' : '#fffaf6', fg: on ? '#f6ebe4' : '#1c1113', border: on ? '#1c1113' : '#e2d3c8', go: () => this.startScenario(k)};
+    });
+    const filters = [['todos', 'Todos'], ['gratis', 'Gratuitos'], ['pagos', 'Pagos']].map(([k, l]) => ({label: l, bg: s.filter === k ? '#1c1113' : 'transparent', fg: s.filter === k ? '#f6ebe4' : '#4f3e3a', go: () => { this.ui(); this.setState({filter: k}); }}));
+    const courses = COURSES.filter(c => s.filter === 'todos' || (s.filter === 'gratis' ? !c.price : !!c.price)).map(c => ({
+      ...c, badge: c.price ? 'Pago' : 'Grátis', badgeBg: c.price ? '#f6ebe4' : '#e0333f', badgeFg: c.price ? '#1c1113' : '#fff',
+      priceLabel: c.price ? 'R$ ' + c.price : 'Grátis', cta: c.price ? 'Comprar' : 'Começar', btnBg: c.price ? '#1c1113' : '#b8232e',
+      act: () => { this.play(72); this.flash(c.price ? `“${c.t}” · compra demonstrativa, nenhum pagamento é feito.` : `“${c.t}” · matrícula demonstrativa, nenhuma conta é criada.`); }
+    }));
+    const done = s.phase === 'done' || s.phase === 'tapping';
+    const beats = [0, 1, 2, 3].map(i => {
+      const on = s.lit === i || (s.phase === 'tapping' && i < s.taps.length) || (s.phase === 'done' && s.lit >= 0);
+      return {n: i + 1, bg: on ? '#e0333f' : 'transparent', fg: on ? '#fff' : '#8a716b', border: on ? '#e0333f' : 'rgba(246,235,228,0.16)', glow: on ? '0 0 40px rgba(224,51,63,0.55)' : 'none'};
+    });
+    const trailData = [['Conhecendo o piano', 'done'], ['Notas musicais', 'done'], ['Ritmo e pulsação', 'now'], ['Sua primeira melodia', 'lock'], ['Desafio da unidade', 'lock']];
+    const trail = trailData.map(([name, st], i) => ({
+      name, mark: st === 'done' ? '✓' : String(i + 1),
+      dotBg: st === 'done' ? '#f6ebe4' : st === 'now' ? '#e0333f' : 'transparent', dotFg: st === 'done' ? '#1c1113' : st === 'now' ? '#fff' : '#8a716b',
+      dotBorder: st === 'lock' ? 'rgba(246,235,228,0.2)' : 'transparent', fg: st === 'lock' ? '#8a716b' : '#f6ebe4', weight: st === 'now' ? 700 : 500,
+      tag: st === 'done' ? 'Concluída' : st === 'now' ? 'Você está aqui' : 'Bloqueada', tagFg: st === 'now' ? '#f0b7ad' : '#8a716b'
+    }));
+    const paid = COURSES.filter(c => c.price);
+    const avulsoOpts = paid.map((c, i) => ({t: c.t, p: 'R$ ' + c.price, bg: s.avulso === i ? 'rgba(224,51,63,0.14)' : 'transparent', border: s.avulso === i ? '#e0333f' : 'rgba(246,235,228,0.12)', go: () => { this.ui(); this.setState({avulso: i}); }}));
+    const sc = SCREENS[s.screen];
+    const screens = SCREENS.map((x, i) => ({n: '0' + (i + 1), t: x.t, bg: s.screen === i ? '#1c1113' : 'transparent', fg: s.screen === i ? '#f6ebe4' : '#1c1113', border: s.screen === i ? '#1c1113' : '#d6c4b8', go: () => { this.ui(); this.setState({screen: i}); }}));
+    const dot = {width: 7, height: 7, borderRadius: '50%', background: '#b8232e', display: 'block', animation: 'mdTyping 1.2s infinite ease-in-out'};
+    const typingEl = React.createElement('div', {style: {alignSelf: 'flex-start', display: 'flex', gap: 5, padding: '16px 18px', background: '#f1e3da', borderRadius: '20px 20px 20px 6px'}},
+      [0, 1, 2].map(i => React.createElement('span', {key: i, style: {...dot, animationDelay: i * 0.15 + 's'}})));
+
+    return {
+      staffRef: this.staffRef, playheadRef: this.playheadRef, mascotRef: this.mascotRef, msgsRef: this.msgsRef, tapRef: this.tapRef,
+      hNota: h === 'nota', hDentro: h === 'dentro', hPalco: h === 'palco',
+      soundLabel: s.sound ? 'Som ligado' : 'Som desligado', soundDot: s.sound ? '#e0333f' : '#5a4a46',
+      toggleSound: () => { this.gestured = true; this.setState({sound: !s.sound}, () => this.state.sound && this.blip()); },
+      whiteKeys, lastNote: s.lastNote, singMotif: () => this.singMotif(),
+      persona, openFicha: () => this.setState({fichaOpen: true}), closeFicha: () => this.setState({fichaOpen: false}), fichaOpen: s.fichaOpen,
+      scenarios, chatStatus: s.typing ? 'digitando…' : FLOWS[s.scenario].status,
+      messages: s.messages.map(m => ({text: m.text, bot: m.from === 'bot', user: m.from === 'user'})),
+      typing: s.typing, typingEl,
+      choices: s.choices.map(c => ({label: c.label, act: () => this.choose(c)})),
+      input: s.input, onInput: e => this.setState({input: e.target.value}), submitText: e => this.submitText(e),
+      restartChat: () => this.startScenario(s.scenario),
+      filters, courses,
+      beats, trail, practiceMsg: s.practiceMsg,
+      listenBeats: () => this.listenBeats(), startTapping: () => this.startTapping(), tap: e => { e && e.preventDefault(); this.tap(); },
+      tapBg: s.phase === 'tapping' ? 'rgba(224,51,63,0.12)' : 'transparent', tapFg: s.phase === 'tapping' ? '#f6ebe4' : '#8a716b', tapBorder: s.phase === 'tapping' ? '#e0333f' : 'rgba(246,235,228,0.2)',
+      avulsoOpts, avulsoPrice: paid[s.avulso].price,
+      subscribe: () => { this.singMotif(); this.flash('Assinatura demonstrativa · nenhum pagamento é realizado neste protótipo.'); },
+      buyAvulso: () => { this.play(76); this.flash(`“${paid[s.avulso].t}” · compra demonstrativa.`); },
+      screens, scr0: s.screen === 0, scr1: s.screen === 1, scr2: s.screen === 2, scr3: s.screen === 3, scr4: s.screen === 4, screenSrc: sc.src, screenTitle: 'Tela ' + sc.t + ' do MeloThing', screenSlug: sc.slug, screenDesc: sc.d,
+      reqs: [
+        {k: 'IA generativa', v: 'Identidade visual e telas criadas com IA; frases de ouvido sorteadas por modelo de Markov.'},
+        {k: 'Persona digital', v: 'Nome, idade aparente, tom de voz, características físicas e vestimenta.'},
+        {k: 'Interface conversacional', v: 'Chat com cinco fluxos e reconhecimento de texto livre.'},
+        {k: 'Fluxos de exercícios', v: 'Prática de pulsação a 80 BPM e treino de ouvido.'},
+        {k: 'Protótipo navegável', v: 'Este site e as cinco telas do aplicativo.'},
+        {k: 'Documentação técnica', v: 'Arquitetura, fluxos conversacionais e precificação.'}
+      ],
+      deliverables: ['Documento do projeto', 'Imagem da assistente gerada por IA', 'Protótipo do sistema', 'Demonstração do chatbot', 'Fluxos de conversação', 'Precificação'].map((t, i) => ({n: '0' + (i + 1), t})),
+      toast: s.toast
+    };
+  }
+}
+</script>
 </body>
 </html>
